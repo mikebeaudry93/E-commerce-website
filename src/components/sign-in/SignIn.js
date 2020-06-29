@@ -28,8 +28,6 @@ export class SignIn extends Component {
         } catch (error) {
             console.log(error)
         }
-
-        // this.setState({email: '', password: ''})
     }
 
     handleChange = event => {
@@ -39,6 +37,8 @@ export class SignIn extends Component {
 
         this.setState({ [name]: value})
     }
+
+
 
     render() {
         return (
@@ -58,7 +58,7 @@ export class SignIn extends Component {
 
                     <div className="buttons">
                         <CustomButton type="submit" value="Submit Form"> Sign in </CustomButton>
-                        <CustomButton onClick={signInWithGoogle} isGoogleSignIn>Sign in with Google </CustomButton>
+                        <CustomButton type="button" onClick={signInWithGoogle} isGoogleSignIn>Sign in with Google </CustomButton>
                     </div>
                 </form>
             </div>
