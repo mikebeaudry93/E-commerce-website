@@ -9,7 +9,7 @@ import ShopPage from './pages/shop/ShopPage';
 import SignUpSignIn from './pages/sign-in-and-sign-up/SignUpSignIn';
 import Header from './components/header/Header';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
-import { setCurrentUser } from './redux/user/user.actions'
+import { setCurrentUser } from './redux/user/user.actions';
 
 class App extends React.Component {
 
@@ -17,7 +17,7 @@ class App extends React.Component {
 
   componentDidMount() {
 
-    const {setCurrentUser} = this.props
+    const { setCurrentUser } = this.props;
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -30,7 +30,7 @@ class App extends React.Component {
           });
         });
       }
-        setCurrentUser({userAuth})
+        setCurrentUser(userAuth)
       
     });
   }
@@ -46,15 +46,23 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={Homepage} />
           <Route path='/shop' component={ShopPage} />
-          <Route exact path='/signin' render={() => this.props.currentUser ? (<Redirect to ='/' />) : (<SignUpSignIn />)}/>
+          <Route 
+          exact 
+          path='/signin' 
+          render={() => 
+            this.props.currentUser ? (
+              <Redirect to ='/' />
+            ) : (
+              <SignUpSignIn />
+            )} />
         </Switch>
       </div>
     );
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  currentUser: user.currentUser
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,4 +1,4 @@
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
@@ -10,15 +10,17 @@ const config = {
     storageBucket: "crwn-db-7ca3c.appspot.com",
     messagingSenderId: "723418233870",
     appId: "1:723418233870:web:ff2295b24b431af430d05f",
-    measurementId: "G-ZBT7X9B71L"
+    // measurementId: "G-ZBT7X9B71L"
   };
+
+  firebase.initializeApp(config);
 
   export const createUserProfileDocument = async (userAuth, additionalData) => {
     if(!userAuth) return;
 
-    const userRef = firestore.doc(`users/${userAuth.uid}`)
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
 
-    const snapShot = await userRef.get()
+    const snapShot = await userRef.get();
 
     if(!snapShot.exists) {
       const { displayName, email } = userAuth;
@@ -30,7 +32,7 @@ const config = {
           email,
           createdAt,
           ...additionalData
-        })
+        });
      } catch (error) {
         console.log('error creating user', error.message);
      }
@@ -38,9 +40,7 @@ const config = {
 
   return userRef;
 
-}
-
-  firebase.initializeApp(config);
+};
 
   export const auth = firebase.auth();
   export const firestore = firebase.firestore();
